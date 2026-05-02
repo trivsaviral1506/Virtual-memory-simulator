@@ -13,7 +13,7 @@
 
 ---
 
-## 📖 Project Description
+## Project Description
 
 The **Virtual Memory Optimization Simulator** is an educational and analytical tool designed to visualize the core concepts of Operating System memory management. Modern operating systems use virtual memory to allow processes to execute even when their entire address space isn't in physical RAM.
 
@@ -26,7 +26,7 @@ By providing a live, interactive visualization, users can compare different algo
 
 ---
 
-## ✨ Features
+## Features
 
 - **Demand Paging Simulation**: Step-by-step visualization of page reference strings.
 - **Replacement Algorithms**:
@@ -43,7 +43,7 @@ By providing a live, interactive visualization, users can compare different algo
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Frontend**: React 18, Vite, TypeScript.
 - **Styling**: Tailwind CSS (Utility-first styling).
@@ -54,7 +54,7 @@ By providing a live, interactive visualization, users can compare different algo
 
 ---
 
-## ⚙️ How to Run Locally
+## How to Run Locally
 
 Follow these steps to get the simulator running on your machine:
 
@@ -82,13 +82,13 @@ Open your browser and navigate to `http://localhost:3000`.
 
 ---
 
-## 📸 Preview
+## Preview
 
 ![App Screenshot Placeholder](https://via.placeholder.com/1200x600/09090b/white?text=Virtual+Memory+Simulator+UI+Preview)
 
 ---
 
-## 🎯 Implementation Details
+## Implementation Details
 
 The core logic of the simulation mimics the behavior of an OS kernel. The **Paging Module** maintains a frame array and calculates hits/faults based on the selected replacement stack. The **Allocation Module** maps a list of process sizes into defined memory partitions, tracking the used/free space down to the KB level to identify spatial inefficiencies.
 
