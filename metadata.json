@@ -1,1 +1,7 @@
 
+{
+  "name": "Virtual Memory Optimization Simulator",
+  "description": "An interactive tool for simulating demand paging, page replacement algorithms, and memory allocation techniques with fragmentation analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
