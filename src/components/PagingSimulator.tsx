@@ -14,6 +14,14 @@ export function PagingSimulator() {
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(-1);
 
+  const handleReset = () => {
+    setPageString("");
+    setFrames(3);
+    setResult(null);
+    setComparison(null);
+    setCurrentStep(-1);
+  };
+
   const getInsight = () => {
     if (!result || !comparison) return null;
     const { FIFO, LRU, OPTIMAL } = comparison;
@@ -137,14 +145,26 @@ export function PagingSimulator() {
               </div>
             </div>
 
-            <button 
-              onClick={handleSimulate}
-              disabled={loading || !pageString.trim()}
-              className="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.97] disabled:bg-zinc-800 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)]"
-            >
-              {loading ? "Processing..." : "Compute Simulation"}
-              {!loading && <Play className="w-3 h-3 fill-current" />}
-            </button>
+            <div className="flex gap-3">
+              <button 
+                onClick={handleSimulate}
+                disabled={loading || !pageString.trim()}
+                className="flex-1 bg-blue-600 hover:bg-blue-500 active:scale-[0.97] disabled:bg-zinc-800 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)]"
+              >
+                {loading ? "Processing..." : "Compute Simulation"}
+                {!loading && <Play className="w-3 h-3 fill-current" />}
+              </button>
+              <button 
+                onClick={handleReset}
+                className="px-6 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white rounded-2xl transition-all flex items-center justify-center transform active:scale-95"
+                title="Reset Simulation"
+              >
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-blue-500" />
+                  <span className="text-[8px] font-black uppercase tracking-tighter">CLR</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
 

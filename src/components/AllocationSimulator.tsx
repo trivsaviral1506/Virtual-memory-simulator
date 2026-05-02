@@ -12,6 +12,13 @@ export function AllocationSimulator() {
   const [comparisonResults, setComparisonResults] = useState<Record<string, AllocationResult> | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const handleReset = () => {
+    setBlocks([]);
+    setProcesses([]);
+    setResult(null);
+    setComparisonResults(null);
+  };
+
   const handleSimulate = async () => {
     setLoading(true);
     try {
@@ -127,13 +134,25 @@ export function AllocationSimulator() {
               </div>
             </div>
 
-            <button 
-              onClick={handleSimulate}
-              disabled={loading}
-              className="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.97] disabled:bg-zinc-800 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 rounded-[1.5rem] transition-all shadow-[0_20px_40px_-15px_rgba(16,185,129,0.4)]"
-            >
-              {loading ? "Calculating..." : "Execute Physical Map"}
-            </button>
+            <div className="flex gap-3">
+              <button 
+                onClick={handleSimulate}
+                disabled={loading}
+                className="flex-1 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.97] disabled:bg-zinc-800 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 rounded-[1.5rem] transition-all shadow-[0_20px_40px_-15px_rgba(16,185,129,0.4)]"
+              >
+                {loading ? "Calculating..." : "Execute Physical Map"}
+              </button>
+              <button 
+                onClick={handleReset}
+                className="px-6 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white rounded-[1.5rem] transition-all flex items-center justify-center transform active:scale-95"
+                title="Reset Simulation"
+              >
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-emerald-500" />
+                  <span className="text-[8px] font-black uppercase tracking-tighter">CLR</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
 
