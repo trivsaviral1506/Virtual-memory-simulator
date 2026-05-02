@@ -14,6 +14,43 @@ export function PagingSimulator() {
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(-1);
 
+  const getInsight = () => {
+    if (!result || !comparison) return null;
+    const { FIFO, LRU, OPTIMAL } = comparison;
+    const currentFaults = comparison[algo as keyof PagingComparison];
+    
+    const minFaults = Math.min(FIFO, LRU, OPTIMAL);
+    const isBest = currentFaults === minFaults;
+
+    if (FIFO === LRU && LRU === OPTIMAL) {
+      return "Algorithm performance converges for this specific reference string.";
+    }
+    
+    if (algo === "OPTIMAL" && isBest) {
+      return "Optimal algorithm minimizes faults by having perfect knowledge of future requests.";
+    }
+    
+    if (LRU < FIFO && algo === "LRU") {
+      return "LRU is outperforming FIFO by exploiting temporal locality in the input.";
+    }
+
+    if (FIFO < LRU && algo === "FIFO") {
+      return "FIFO is performing better than LRU for this specific memory workload.";
+    }
+
+    const efficiency = ((result.steps.length - result.total_page_faults) / result.steps.length) * 100;
+    if (efficiency < 30) {
+      return "Low efficiency detected. Increasing physical frames may reduce thrashing.";
+    }
+    
+    if (isBest) {
+      return `${algo} is currently the most efficient strategy for this workload.`;
+    }
+
+    const betterAlgo = OPTIMAL < currentFaults ? 'Optimal' : (LRU < currentFaults ? 'LRU' : 'FIFO');
+    return `Note: ${betterAlgo} would reduce page faults for this specific reference string.`;
+  };
+
   const handleSimulate = async () => {
     if (!pageString.trim()) return;
     setLoading(true);
@@ -194,6 +231,21 @@ export function PagingSimulator() {
                 </div>
               ))}
             </div>
+
+            <AnimatePresence>
+              {result && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="px-6 py-4 rounded-2xl bg-blue-600/5 border border-blue-500/20"
+                >
+                  <p className="text-[10px] font-black uppercase tracking-[0.1em] text-blue-400">
+                    <span className="mr-2">💡</span>
+                    {getInsight()}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Main Data Table */}
             <div className="glass-card rounded-[3rem] overflow-hidden border-zinc-800/30">
