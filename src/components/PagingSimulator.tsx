@@ -216,7 +216,7 @@ export function PagingSimulator() {
                         transition={{ delay: idx * 0.02 }}
                         className={cn(
                           "transition-colors relative group",
-                          currentStep === idx ? "bg-blue-600/[0.03]" : "hover:bg-white/[0.01]"
+                          currentStep === idx ? "bg-blue-600/[0.08] shadow-[inset_4px_0_0_0_#3b82f6]" : "hover:bg-white/[0.01]"
                         )}
                         onMouseEnter={() => setCurrentStep(idx)}
                         onMouseLeave={() => setCurrentStep(-1)}
@@ -234,20 +234,26 @@ export function PagingSimulator() {
                         </td>
                         <td className="px-8 py-6">
                           <div className="flex gap-3">
-                            {step.frames.map((f, fidx) => (
-                              <motion.div 
-                                key={fidx}
-                                layout
-                                className={cn(
-                                  "w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs border transition-all duration-300",
-                                  f === null ? "bg-zinc-950/20 border-zinc-900/50 text-zinc-800" : 
-                                  f === step.page && step.is_fault ? "bg-blue-600 border-blue-400 text-white shadow-xl shadow-blue-600/30 ring-4 ring-blue-600/10" :
-                                  "bg-zinc-900 border-zinc-800 text-zinc-300 group-hover:border-zinc-700"
-                                )}
-                              >
-                                {f === null ? "" : f}
-                              </motion.div>
-                            ))}
+                            {step.frames.map((f, fidx) => {
+                              const prevStep = result.steps[idx - 1];
+                              const isTargetFrame = step.is_fault && f === step.page && (!prevStep || prevStep.frames[fidx] !== f);
+                              
+                              return (
+                                <motion.div 
+                                  key={fidx}
+                                  layout
+                                  className={cn(
+                                    "w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs border transition-all duration-300",
+                                    f === null ? "bg-zinc-950/20 border-zinc-900/50 text-zinc-800" : 
+                                    isTargetFrame ? "bg-red-600 border-red-400 text-white shadow-xl shadow-red-600/40 ring-4 ring-red-600/10 scale-110 z-10" :
+                                    f === step.page && !step.is_fault ? "bg-emerald-600/20 border-emerald-500/50 text-emerald-400" :
+                                    "bg-zinc-900 border-zinc-800 text-zinc-300 group-hover:border-zinc-700"
+                                  )}
+                                >
+                                  {f === null ? "" : f}
+                                </motion.div>
+                              );
+                            })}
                           </div>
                         </td>
                         <td className="px-8 py-6">
