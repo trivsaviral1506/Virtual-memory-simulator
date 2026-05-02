@@ -8,7 +8,7 @@ interface PagingStep {
   is_fault: boolean;
   frames: (number | null)[];
 }
-
+// this is the main part
 interface PagingResult {
   total_page_faults: number;
   steps: PagingStep[];
