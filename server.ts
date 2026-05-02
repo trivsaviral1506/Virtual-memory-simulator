@@ -13,7 +13,7 @@ interface PagingResult {
   total_page_faults: number;
   steps: PagingStep[];
 }
-
+// Simulates FIFO (First-In-First-Out) page replacement algorithm
 function simulateFIFO(framesCount: number, referenceString: number[]): PagingResult {
   const frames: (number | null)[] = Array(framesCount).fill(null);
   const steps: PagingStep[] = [];
