@@ -15,6 +15,7 @@ export function PagingSimulator() {
   const [currentStep, setCurrentStep] = useState(-1);
 
   const handleSimulate = async () => {
+    if (!pageString.trim()) return;
     setLoading(true);
     try {
       const pages = pageString.split(",").map((s) => parseInt(s.trim())).filter((n) => !isNaN(n));
@@ -101,7 +102,7 @@ export function PagingSimulator() {
 
             <button 
               onClick={handleSimulate}
-              disabled={loading}
+              disabled={loading || !pageString.trim()}
               className="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.97] disabled:bg-zinc-800 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)]"
             >
               {loading ? "Processing..." : "Compute Simulation"}

@@ -82,12 +82,6 @@ Open your browser and navigate to `http://localhost:3000`.
 
 ---
 
-## Preview
-
-![App Screenshot Placeholder](https://via.placeholder.com/1200x600/09090b/white?text=Virtual+Memory+Simulator+UI+Preview)
-
----
-
 ## Implementation Details
 
 The core logic of the simulation mimics the behavior of an OS kernel. The **Paging Module** maintains a frame array and calculates hits/faults based on the selected replacement stack. The **Allocation Module** maps a list of process sizes into defined memory partitions, tracking the used/free space down to the KB level to identify spatial inefficiencies.
